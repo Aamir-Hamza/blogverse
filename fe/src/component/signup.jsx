@@ -13,95 +13,101 @@ const Signup = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post("https://blogverse-6.onrender.com/signup", { name, email, password });
+      await axios.post("https://blogverse-6.onrender.com/signup", {
+        name,
+        email,
+        password,
+      });
       alert("Signup successful! Please login.");
       navigate("/");
     } catch (error) {
-      alert(error.response?.data?.message || "Signup failed. Please try again.");
+      alert(
+        error.response?.data?.message || "Signup failed. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <div className="w-full max-w-md px-6 py-8 bg-white rounded-xl shadow-lg">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-800">BlogVerse</h1>
-          <p className="mt-2 text-gray-600">Create your account</p>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] px-4">
+      <div className="w-full max-w-md bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-2xl">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-extrabold text-white">BlogVerse</h1>
+          <p className="text-sm text-gray-300 mt-2">Create your free account</p>
         </div>
-        
+
         <form className="space-y-6" onSubmit={handleSignup}>
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-1">
               Name
             </label>
             <input
               id="name"
               type="text"
-              required
-              placeholder="Your name"
+              placeholder="John Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
-          
+
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-1">
               Email
             </label>
             <input
               id="email"
               type="email"
-              required
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
-          
+
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-1">
               Password
             </label>
             <input
               id="password"
               type="password"
-              required
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              required
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
-          
+
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full px-4 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-70"
+            className="w-full py-3 rounded-lg bg-gradient-to-r from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 text-white font-semibold transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-70"
           >
-            {isLoading ? "Creating account..." : "Sign up"}
+            {isLoading ? "Creating Account..." : "Sign Up"}
           </button>
         </form>
-        
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
+
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-300">
             Already have an account?{" "}
             <button
               onClick={() => navigate("/")}
-              className="font-medium text-blue-600 hover:text-blue-800"
+              className="text-violet-400 hover:text-violet-300 font-medium transition"
             >
               Log in
             </button>
           </p>
         </div>
       </div>
-      
-      <p className="mt-8 text-xs text-center text-gray-500">
+
+      <footer className="absolute bottom-4 text-gray-400 text-xs text-center w-full">
         &copy; 2025 BlogVerse. All rights reserved.
-      </p>
+      </footer>
     </div>
   );
 };
