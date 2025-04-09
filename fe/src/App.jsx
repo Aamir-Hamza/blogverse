@@ -5,11 +5,13 @@ import Signup from "./component/signup";
 import CreateBlog from "./component/CreateBlog";
 import Comments from "./component/Comments";
 import Profile from "./component/Profile";
+import About from "./component/About";
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/about" element={<About />} />
         <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />

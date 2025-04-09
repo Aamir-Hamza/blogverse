@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchBlogs, likeBlog } from "../services/blogService";
 import Navbar from "./Navbar";
+import { HandThumbUpIcon, ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/solid";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -39,59 +40,61 @@ const Home = () => {
     }
   };
 
-  if (loading) return (
-    <div className="flex justify-center items-center h-screen">
-      <p className="text-xl text-gray-600">Loading blogs...</p>
-    </div>
-  );
-  
-  if (error) return (
-    <div className="flex justify-center items-center h-screen">
-      <p className="text-xl text-red-600">Error: {error}</p>
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl text-gray-600">Loading blogs...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl text-red-600">Error: {error}</p>
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Latest Blogs</h1>
-        
+        <h1 className="text-3xl font-bold text-gray-800 mb-8">📝 Latest Blogs</h1>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogs.map((blog) => (
-            <div 
-              key={blog._id} 
-              className="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg"
+            <div
+              key={blog._id}
+              className="bg-white rounded-2xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300"
             >
-              <div className="p-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">{blog.title}</h2>
-                <p className="text-sm text-gray-500 mb-4">
-                  by {blog.author?.name || "Unknown Author"}
-                </p>
-                <p className="text-gray-600 mb-6">
-                  {blog.content.substring(0, 150)}...
-                </p>
-                
-                <div className="flex justify-between items-center mt-4">
-                  <button 
+              <div className="p-6 flex flex-col justify-between h-full">
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-800 mb-1">{blog.title}</h2>
+                  <p className="text-sm text-gray-500 mb-3">✍️ {blog.author?.name || "Unknown Author"}</p>
+                  <p className="text-gray-700 text-sm line-clamp-4">{blog.content}</p>
+                </div>
+
+                <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200">
+                  <button
                     onClick={() => handleLike(blog._id)}
-                    className="flex items-center text-gray-700 hover:text-blue-600 transition duration-200"
+                    className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition"
                   >
-                    <span className="mr-1">👍</span> {blog.likes || 0}
+                    <HandThumbUpIcon className="h-5 w-5" />
+                    <span>{blog.likes || 0}</span>
                   </button>
-                  
-                  <button 
+
+                  <button
                     onClick={() => navigate(`/comments/${blog._id}`)}
-                    className="flex items-center text-gray-700 hover:text-blue-600 transition duration-200"
+                    className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition"
                   >
-                    <span className="mr-1">💬</span> Comment
+                    <ChatBubbleLeftEllipsisIcon className="h-5 w-5" />
+                    <span>Comment</span>
                   </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        
+
         {blogs.length === 0 && !loading && !error && (
           <div className="text-center py-12">
             <p className="text-xl text-gray-600">No blogs found. Be the first to create one!</p>
