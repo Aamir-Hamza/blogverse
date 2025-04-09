@@ -12,7 +12,10 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post("https://blogverse-6.onrender.com/login", { email, password });
+      const response = await axios.post("https://blogverse-6.onrender.com/login", {
+        email,
+        password,
+      });
       localStorage.setItem("token", response.data.token);
       navigate("/home");
     } catch (error) {
@@ -23,73 +26,69 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <div className="w-full max-w-md px-6 py-8 bg-white rounded-xl shadow-lg">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-800">BlogVerse</h1>
-          <p className="mt-2 text-gray-600">Welcome back! Log in to your account</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 p-4">
+      <div className="w-full max-w-md bg-white/30 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/50">
+        <div className="text-center mb-6">
+          <h1 className="text-4xl font-extrabold text-gray-800 tracking-tight">BlogVerse</h1>
+          <p className="mt-1 text-sm text-gray-600">Welcome back 👋 Please log in</p>
         </div>
-        
-        <form className="space-y-6" onSubmit={handleLogin}>
+
+        <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
+            <label htmlFor="email" className="text-sm font-medium text-gray-700">
+              Email Address
             </label>
             <input
               id="email"
               type="email"
               required
-              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="you@example.com"
+              className="mt-1 w-full px-4 py-3 bg-white/80 rounded-xl border border-gray-300 text-sm text-gray-800 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             />
           </div>
-          
+
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="text-sm font-medium text-gray-700">
               Password
             </label>
             <input
               id="password"
               type="password"
               required
-              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="••••••••"
+              className="mt-1 w-full px-4 py-3 bg-white/80 rounded-xl border border-gray-300 text-sm text-gray-800 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             />
           </div>
-          
+
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full px-4 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:opacity-70"
+            className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold transition duration-200 disabled:opacity-60"
           >
             {isLoading ? "Logging in..." : "Sign in"}
           </button>
         </form>
-        
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{" "}
-            <button
-              onClick={() => navigate("/signup")}
-              className="font-medium text-blue-600 hover:text-blue-800"
-            >
-              Sign up now
-            </button>
-          </p>
+
+        <div className="mt-6 text-center text-sm text-gray-700">
+          Don’t have an account?{" "}
+          <button
+            onClick={() => navigate("/signup")}
+            className="text-purple-600 font-medium hover:underline"
+          >
+            Sign up now
+          </button>
         </div>
       </div>
-      
-      <p className="mt-8 text-xs text-center text-gray-500">
+
+      <footer className="absolute bottom-4 text-xs text-gray-500 text-center">
         &copy; 2025 BlogVerse. All rights reserved.
-      </p>
+      </footer>
     </div>
   );
 };
 
 export default Login;
-
-
